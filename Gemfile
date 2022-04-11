@@ -38,6 +38,8 @@ gem "strong_migrations", "~> 1.0.0"
 
 # Bootstrap is a library for HTML, CSS and JS.
 gem 'bootstrap', '~> 4.6.0'
+# Tailwind is a library used for CSS styling
+gem 'tailwindcss-rails'
 # Displays a date range picker, i.e. a way for a user to select a start and end date in
 # a single widget.
 gem 'bootstrap-daterangepicker-rails'
