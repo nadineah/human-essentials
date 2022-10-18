@@ -97,7 +97,14 @@ class DistributionsController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           flash.now[:error] = flash_error
-          render turbo_stream: turbo_stream.replace("flash", partial: "shared/flash")
+          render turbo_stream: [
+            turbo_stream.replace("flash", partial: "shared/flash"),
+            turbo_stream.replace("distribution-form", partial: "form", locals: { 
+              distribution: @distribution, 
+              request_id: params[:request_id], 
+              organization: current_organization 
+            })
+          ]
         end
       end
     end
