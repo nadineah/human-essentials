@@ -3,6 +3,7 @@ class AccountRequestsController < ApplicationController
   skip_before_action :authenticate_user!
 
   before_action :set_account_request_from_token, only: [:received, :confirmation, :confirm]
+  before_action :enable_turbo!
 
   layout 'devise'
 
@@ -18,6 +19,7 @@ class AccountRequestsController < ApplicationController
 
   def new
     @account_request = AccountRequest.new
+    @selected = params[:selected]
   end
 
   def create

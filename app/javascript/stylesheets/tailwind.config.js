@@ -4,11 +4,13 @@ module.exports = {
   content: [
     "app/views/**/*.html.erb"
   ],
+  important: true,
   variants: {
     extend: {
       borderWidth: ['last'],
     },
   },
+  mode: 'jit',
   theme: {
     extend: {
       animation: {

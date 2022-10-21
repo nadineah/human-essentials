@@ -59,6 +59,10 @@ gem "stimulus-rails"
 
 ##### VIEWS/CONTROLLERS #####
 
+# Super charge partials with view components.
+gem "view_component"
+# Design library of all view components used in the app.
+gem "lookbook", ">= 1.1.0"
 # Adds easy links to add or remove associations in a form (e.g. line items)
 gem "cocoon"
 # Adds filter support to models and views.

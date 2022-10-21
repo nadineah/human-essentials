@@ -1,96 +1,88 @@
-<% unless Rails.env.staging? %>
-  <div class="bg-white" style='width: 35rem'>
-    <div class="p-3">
-      <div class="mb-10">
-        <h1 class='text-3xl text-center'>Essentials Bank Account Request Form</h1>
-      </div>
+<%= render AuthenticationLayoutComponent.new(background_image: 'mosaic/auth-image.jpg') do |c| %>
 
-      <div class="form-check">
-        <%= radio_button_tag(:account, :bank, false, class: 'form-check-input account_type') %>
-        <%= label_tag(:account, "I am an Essentials Bank. I do NOT distribute diapers/period supplies directly to the public, I distribute them to partner agencies who distribute them to the public.", class: 'form-check-label') %>
-      </div>
-      <div class="form-check">
-        <%= radio_button_tag(:account, :partner, false, class: 'form-check-input account_type') %>
-        <%= label_tag(:account, "I am a Partner Agency to an Essentials Bank. I distribute the diapers/period supplies that I receive from essentials banks directly to the public.", class: 'form-check-label') %>
-      </div>
-
-      <script>
-          $('.account_type').change(function() {
-              if (this.value === 'bank') {
-                  $('#create_bank').show()
-                  $('#partner_info').hide()
-              } else {
-                  $('#create_bank').hide()
-                  $('#partner_info').show()
-              }
-          })
-
-          $(document).ready(function() {
-              $('#create_bank').hide()
-              $('#partner_info').hide()
-          })
-      </script>
-
-      <div class='card-text' id='partner_info'>
-        <p class='p-2'>Are you a current partner to a diaper and/or period supply banks? If so please go to the <a href='https://www.humanessentials.app/partner_users/sign_in'>partner app</a> to login.</p>
-        <p class='p-2'>If you are wishing to receive diapers/period supplies and partner to a local diaper/period supply bank please contact your local bank. They are the only ones able create your account.</p>
-      </div>
-
-      <div class='card-text' id='create_bank'>
-        <p class='p-2 bg-yellow-200'>
+  <%= turbo_frame_tag 'account-request-form' do %>
+    <div class="bg-white" style='width: 35rem'>
+      <% if @selected.nil? %>
+        <div class="p-3">
+          <div class="max-w-md mx-auto">
+            <h1 class="text-3xl text-slate-800 font-bold mb-6">Account Request Form ✨</h1>
+            <!-- Form -->
+            <form>
+              <div class="space-y-3 mb-8">
+                <label class="relative block cursor-pointer">
+                  <input type="radio" name="radio-buttons" class="peer sr-only" checked="checked">
+                  <%= link_to new_account_request_path(selected: 'bank'), data: { turbo: 'advance' } do %>
+                    <div class="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
+                        <path class="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z"></path>
+                        <path class="text-indigo-300" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z"></path>
+                        <path class="text-indigo-200" d="M13 12.588v11l8.486-4.714A1 1 0 0 0 22 18V7.589l-9 4.999Z"></path>
+                      </svg>
+                      <span>I am an Essentials Bank. I do NOT distribute diapers/period supplies directly to the public, I distribute them to partner agencies who distribute them to the public.</span>
+                    </div>
+                    <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
+                  <% end %>
+                </label>
+                <label class="relative block cursor-pointer">
+                  <input type="radio" name="radio-buttons" class="peer sr-only">
+                  <%= link_to new_account_request_path(selected: 'partner'), data: { turbo: 'advance' } do %>
+                    <div class="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <svg class="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
+                        <path class="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z"></path>
+                        <path class="text-indigo-300" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z"></path>
+                      </svg>
+                      <span>
+                        I am a Partner Agency to an Essentials Bank. I distribute the diapers/period supplies that I receive from essentials banks directly to the public.
+                      </span>
+                    </div>
+                  <% end %>
+                  <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
+                </label>
+              </div>
+            </form>
+          </div>
+        <% elsif @selected == 'bank' %>
           Fill out the details below about your bank to request a free account to use Human Essentials for your organization's essentials bank.
-          <br><br>
-          <span class='text-bold'>Do you <span class='text-italic'>partner</span> with diaper and/or period supply banks? If so please go to the <%= link_to 'partner app', new_user_session_path %> to login.</span>
-        </p>
 
-        <%= simple_form_for(@account_request) do |f| %>
-          <%= f.error_notification %>
-          <%= render partial: "shared/flash" %>
-
-          <div class="form-inputs">
-            <div class="form-inputs">
-              <%= f.input :name, autofocus: true %>
-            </div>
+          <%= simple_form_for(@account_request) do |f| %>
+            <%= f.error_notification %>
+            <%= render partial: "shared/flash" %>
 
             <div class="form-inputs">
-              <%= f.input :email %>
+              <div class="form-inputs">
+                <%= f.input :name, autofocus: true %>
+              </div>
+
+              <div class="form-inputs">
+                <%= f.input :email %>
+              </div>
+
+              <div class="form-inputs">
+                <%= f.input :organization_name %>
+              </div>
+
+              <div class="form-inputs">
+                <%= f.input :organization_website %>
+              </div>
+
+              <div class="form-inputs">
+                <%= f.input :request_details, placeholder: 'Tell us more about your organization and how you would use Human Essentials', label: "Request Details (min 50 characters)" %>
+              </div>
             </div>
 
-            <div class="form-inputs">
-              <%= f.input :organization_name %>
+            <div class="my-2">
+              <%= recaptcha_tags %>
             </div>
 
-            <div class="form-inputs">
-              <%= f.input :organization_website %>
+            <div class="card-footer">
+              <%= submit_button({text: 'Submit', icon: nil}) %>
             </div>
-
-            <div class="form-inputs">
-              <%= f.input :request_details, placeholder: 'Tell us more about your organization and how you would use Human Essentials', label: "Request Details (min 50 characters)" %>
-            </div>
-          </div>
-
-          <div class="my-2">
-            <%= recaptcha_tags %>
-          </div>
-
-          <div class="card-footer">
-            <%= submit_button({text: 'Submit', icon: nil}) %>
-          </div>
+          <% end %>
+        <% elsif @selected == 'partner' %>
+          Partner
         <% end %>
-      </div>
+        </div>
     </div>
-  </div>
-<% else %>
-  <div class="card" style='width: 30rem'>
-    <div class="card-body">
-      <div class="card-title mb-10">
-        <h3>Request an account</h3>
-      </div>
-
-      <div class='card-text'>
-        <p> Hey there, it looks like you're trying to request an account, but you're not currently on the live version of Human Essentials </p>
-        <p> To request an account, <%= link_to 'click here', 'https://humanessentials.app/account_requests/new' %> to head on over to the Human Essentials website</p>
-      </div>
-    </div>
-  </div>
+  <% end %>
 <% end %>
+

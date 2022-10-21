@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # Add route to access the design library
+  if Rails.env.development?
+    mount Lookbook::Engine, at: "/lookbook"
+  end
+
   #
   # Mount web interface to see delayed job status and queue length.
   # Visible only to logged in users with the `super_admin` role
