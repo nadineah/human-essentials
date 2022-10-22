@@ -1,10 +1,7 @@
 <%= render AuthenticationLayoutComponent.new(side_image_path: "auth-image.jpg") do %>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="max-w-sm mx-auto px-4 py-8">
-
-      <h1 class="text-3xl text-slate-800 font-bold mb-6">Welcome back! ✨</h1>
-
+  <%= render ContentContainerComponent.new(title: "Welcome back!") do %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <!-- Form -->
       <form>
         <div class="space-y-4">
@@ -18,7 +15,7 @@
 
         <div class="flex items-center justify-between mt-6">
           <div class="mr-1">
-            <a class="text-sm underline hover:no-underline" href="reset-password.html">Forgot Password?</a>
+            <%= link_to 'Forgot your password?', new_password_path(resource_name), class: "text-sm underline hover:no-underline" %>
           </div>
           <%= f.button :submit, "Sign in" %>
         </div>
@@ -26,13 +23,13 @@
       <!-- Footer -->
       <div class="pt-5 mt-6 border-t border-slate-200">
         <div class="text-sm">
-          Don’t you have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="signup.html">Sign Up</a>
+          Don’t you have an account? <%= link_to "Sign Up", new_account_request_path, class: "font-medium text-indigo-500 hover:text-indigo-600" %>
         </div>
       </div>
 
       <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post do %>
         <img src="../img/btn_google_signin_dark_focus_web@2x.png" alt="Sign in with Google"/>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 <% end %>

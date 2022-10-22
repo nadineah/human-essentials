@@ -15,7 +15,7 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = 'btn-mosaic bg-indigo-500 hover:bg-indigo-600 text-white ml-3'
+  config.button_class = 'btn-mosaic bg-indigo-500 hover:bg-indigo-600 text-white ml-3 hover:cursor-pointer hover:scale-105 transition duration-300 ease-in-out'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = 'form-check-label'
