@@ -7,7 +7,8 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}',
     "./app/components/*.rb",
-    "./app/components/*.html.erb"
+    "./app/components/*.html.erb",
+    "config/initializers/simple_form_bootstrap.rb"
   ],
   variants: {
     extend: {

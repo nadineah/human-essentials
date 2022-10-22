@@ -52,13 +52,17 @@ input[type=search]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 
+.form-input {
+  @apply text-sm text-slate-800 bg-white border rounded;
+}
+
 .form-input,
 .form-textarea,
 .form-multiselect,
 .form-select,
 .form-checkbox,
 .form-radio {
-  @apply text-sm text-slate-800 bg-white border;
+  @apply text-sm text-slate-800 bg-white border rounded;
 }
 
 .form-input,

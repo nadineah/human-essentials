@@ -1,39 +1,38 @@
-<%= render partial: "shared/flash" %>
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card">
-      <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-        <% if @failed_login %>
-         <p class="failed-login-banner">Invalid Credentials.</p>
-        <% end %>
-        <div class="form-inputs">
-          <%= f.input :email, autofocus: true %>
-        </div>
-        <div class="form-inputs">
-          <%= f.input :password, autofocus: true %>
-        </div>
-        <div class="col-12 text-center">
-          <%= f.button :submit, "Log in", class: "btn btn-primary btn-block" %>
-        </div>
-        <!-- /.col -->
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-3">
-        </div>
-        <div class="col-9">
-          <p class="mb-1">
-            <%= render "users/shared/links" %>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-<% end %>
+<%= render AuthenticationLayoutComponent.new(side_image_path: "auth-image.jpg") do %>
 
-<%= link_to user_google_oauth2_omniauth_authorize_path, method: :post do %>
-  <img src="../img/btn_google_signin_dark_focus_web@2x.png" alt="Sign in with Google"/>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="max-w-sm mx-auto px-4 py-8">
+
+      <h1 class="text-3xl text-slate-800 font-bold mb-6">Welcome back! ✨</h1>
+
+      <!-- Form -->
+      <form>
+        <div class="space-y-4">
+          <div>
+            <%= f.input :email %>
+          </div>
+          <div>
+            <%= f.input :password %>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-6">
+          <div class="mr-1">
+            <a class="text-sm underline hover:no-underline" href="reset-password.html">Forgot Password?</a>
+          </div>
+          <%= f.button :submit, "Sign in" %>
+        </div>
+      </form>
+      <!-- Footer -->
+      <div class="pt-5 mt-6 border-t border-slate-200">
+        <div class="text-sm">
+          Don’t you have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="signup.html">Sign Up</a>
+        </div>
+      </div>
+
+      <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post do %>
+        <img src="../img/btn_google_signin_dark_focus_web@2x.png" alt="Sign in with Google"/>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

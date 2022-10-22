@@ -15,10 +15,12 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   # Default class for buttons
-  config.button_class = 'btn btn-default'
+  config.button_class = 'btn-mosaic bg-indigo-500 hover:bg-indigo-600 text-white ml-3'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = 'form-check-label'
+
+  config.label_class = 'block text-sm font-medium mb-1'
 
   # How the label text should be generated altogether with the required text.
   config.label_text = lambda { |label, required, explicit_label| "#{label} #{required}" }
@@ -56,7 +58,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label
-    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
+    b.use :input, class: 'form-input w-full', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
